@@ -1,0 +1,320 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E33498A314C57AF4003F37F8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E33498A214C57AF4003F37F8 /* Cocoa.framework */; };
+		E33498AD14C57AF4003F37F8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E33498AB14C57AF4003F37F8 /* InfoPlist.strings */; };
+		E33498AF14C57AF4003F37F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E33498AE14C57AF4003F37F8 /* main.m */; };
+		E33498B914C57AF4003F37F8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E33498B714C57AF4003F37F8 /* MainMenu.xib */; };
+		E33498C714C57C1C003F37F8 /* InputMethodController.m in Sources */ = {isa = PBXBuildFile; fileRef = E33498C614C57C1C003F37F8 /* InputMethodController.m */; };
+		E33498CD14C57C99003F37F8 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E33498CC14C57C99003F37F8 /* InputMethodKit.framework */; };
+		E372A42514C7E63000E26D1F /* favicon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E372A42314C7E63000E26D1F /* favicon.icns */; };
+		E372A42614C7E63000E26D1F /* faviconTIS.icns in Resources */ = {isa = PBXBuildFile; fileRef = E372A42414C7E63000E26D1F /* faviconTIS.icns */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E334989E14C57AF4003F37F8 /* FruitIM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FruitIM.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E33498A214C57AF4003F37F8 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		E33498A514C57AF4003F37F8 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		E33498A614C57AF4003F37F8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		E33498A714C57AF4003F37F8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E33498AA14C57AF4003F37F8 /* FruitIM-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FruitIM-Info.plist"; sourceTree = "<group>"; };
+		E33498AC14C57AF4003F37F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E33498AE14C57AF4003F37F8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E33498B014C57AF4003F37F8 /* FruitIM-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FruitIM-Prefix.pch"; sourceTree = "<group>"; };
+		E33498B814C57AF4003F37F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		E33498C514C57C1C003F37F8 /* InputMethodController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputMethodController.h; sourceTree = "<group>"; };
+		E33498C614C57C1C003F37F8 /* InputMethodController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputMethodController.m; sourceTree = "<group>"; };
+		E33498CC14C57C99003F37F8 /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = System/Library/Frameworks/InputMethodKit.framework; sourceTree = SDKROOT; };
+		E372A42314C7E63000E26D1F /* favicon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = favicon.icns; sourceTree = "<group>"; };
+		E372A42414C7E63000E26D1F /* faviconTIS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = faviconTIS.icns; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E334989B14C57AF4003F37F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E33498CD14C57C99003F37F8 /* InputMethodKit.framework in Frameworks */,
+				E33498A314C57AF4003F37F8 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E334989314C57AF3003F37F8 = {
+			isa = PBXGroup;
+			children = (
+				E33498A814C57AF4003F37F8 /* FruitIM */,
+				E33498A114C57AF4003F37F8 /* Frameworks */,
+				E334989F14C57AF4003F37F8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E334989F14C57AF4003F37F8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E334989E14C57AF4003F37F8 /* FruitIM.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E33498A114C57AF4003F37F8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E33498CC14C57C99003F37F8 /* InputMethodKit.framework */,
+				E33498A214C57AF4003F37F8 /* Cocoa.framework */,
+				E33498A414C57AF4003F37F8 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E33498A414C57AF4003F37F8 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E33498A514C57AF4003F37F8 /* AppKit.framework */,
+				E33498A614C57AF4003F37F8 /* CoreData.framework */,
+				E33498A714C57AF4003F37F8 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		E33498A814C57AF4003F37F8 /* FruitIM */ = {
+			isa = PBXGroup;
+			children = (
+				E33498AE14C57AF4003F37F8 /* main.m */,
+				E33498BF14C57B6A003F37F8 /* Classes */,
+				E33498A914C57AF4003F37F8 /* Supporting Files */,
+				E3508E4F14C72644001BB656 /* Resources */,
+			);
+			path = FruitIM;
+			sourceTree = "<group>";
+		};
+		E33498A914C57AF4003F37F8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E33498B714C57AF4003F37F8 /* MainMenu.xib */,
+				E33498AA14C57AF4003F37F8 /* FruitIM-Info.plist */,
+				E33498AB14C57AF4003F37F8 /* InfoPlist.strings */,
+				E33498B014C57AF4003F37F8 /* FruitIM-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E33498BF14C57B6A003F37F8 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E33498C514C57C1C003F37F8 /* InputMethodController.h */,
+				E33498C614C57C1C003F37F8 /* InputMethodController.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		E3508E4A14C72639001BB656 /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				E372A42314C7E63000E26D1F /* favicon.icns */,
+				E372A42414C7E63000E26D1F /* faviconTIS.icns */,
+			);
+			path = icons;
+			sourceTree = "<group>";
+		};
+		E3508E4F14C72644001BB656 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E3508E4A14C72639001BB656 /* icons */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E334989D14C57AF4003F37F8 /* FruitIM */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E33498BC14C57AF4003F37F8 /* Build configuration list for PBXNativeTarget "FruitIM" */;
+			buildPhases = (
+				E334989A14C57AF4003F37F8 /* Sources */,
+				E334989B14C57AF4003F37F8 /* Frameworks */,
+				E334989C14C57AF4003F37F8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FruitIM;
+			productName = FruitIM;
+			productReference = E334989E14C57AF4003F37F8 /* FruitIM.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E334989514C57AF3003F37F8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = E334989814C57AF3003F37F8 /* Build configuration list for PBXProject "FruitIM" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E334989314C57AF3003F37F8;
+			productRefGroup = E334989F14C57AF4003F37F8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E334989D14C57AF4003F37F8 /* FruitIM */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E334989C14C57AF4003F37F8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E33498AD14C57AF4003F37F8 /* InfoPlist.strings in Resources */,
+				E33498B914C57AF4003F37F8 /* MainMenu.xib in Resources */,
+				E372A42514C7E63000E26D1F /* favicon.icns in Resources */,
+				E372A42614C7E63000E26D1F /* faviconTIS.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E334989A14C57AF4003F37F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E33498AF14C57AF4003F37F8 /* main.m in Sources */,
+				E33498C714C57C1C003F37F8 /* InputMethodController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		E33498AB14C57AF4003F37F8 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E33498AC14C57AF4003F37F8 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E33498B714C57AF4003F37F8 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E33498B814C57AF4003F37F8 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E33498BA14C57AF4003F37F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		E33498BB14C57AF4003F37F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		E33498BD14C57AF4003F37F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FruitIM/FruitIM-Prefix.pch";
+				INFOPLIST_FILE = "FruitIM/FruitIM-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E33498BE14C57AF4003F37F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FruitIM/FruitIM-Prefix.pch";
+				INFOPLIST_FILE = "FruitIM/FruitIM-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E334989814C57AF3003F37F8 /* Build configuration list for PBXProject "FruitIM" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E33498BA14C57AF4003F37F8 /* Debug */,
+				E33498BB14C57AF4003F37F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E33498BC14C57AF4003F37F8 /* Build configuration list for PBXNativeTarget "FruitIM" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E33498BD14C57AF4003F37F8 /* Debug */,
+				E33498BE14C57AF4003F37F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E334989514C57AF3003F37F8 /* Project object */;
+}
