@@ -14,6 +14,7 @@
 		E33498C714C57C1C003F37F8 /* InputMethodController.m in Sources */ = {isa = PBXBuildFile; fileRef = E33498C614C57C1C003F37F8 /* InputMethodController.m */; };
 		E33498CD14C57C99003F37F8 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E33498CC14C57C99003F37F8 /* InputMethodKit.framework */; };
 		E3640EAC14CBFCD300364108 /* CINParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E3640EAB14CBFCD300364108 /* CINParser.m */; };
+		E3640EAF14CC0C5000364108 /* DataTable.m in Sources */ = {isa = PBXBuildFile; fileRef = E3640EAE14CC0C5000364108 /* DataTable.m */; };
 		E372A42514C7E63000E26D1F /* favicon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E372A42314C7E63000E26D1F /* favicon.icns */; };
 		E372A42614C7E63000E26D1F /* faviconTIS.icns in Resources */ = {isa = PBXBuildFile; fileRef = E372A42414C7E63000E26D1F /* faviconTIS.icns */; };
 /* End PBXBuildFile section */
@@ -34,6 +35,8 @@
 		E33498CC14C57C99003F37F8 /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = System/Library/Frameworks/InputMethodKit.framework; sourceTree = SDKROOT; };
 		E3640EAA14CBFCD300364108 /* CINParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CINParser.h; sourceTree = "<group>"; };
 		E3640EAB14CBFCD300364108 /* CINParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CINParser.m; sourceTree = "<group>"; };
+		E3640EAD14CC0C5000364108 /* DataTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTable.h; sourceTree = "<group>"; };
+		E3640EAE14CC0C5000364108 /* DataTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTable.m; sourceTree = "<group>"; };
 		E372A42314C7E63000E26D1F /* favicon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = favicon.icns; sourceTree = "<group>"; };
 		E372A42414C7E63000E26D1F /* faviconTIS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = faviconTIS.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,6 +116,8 @@
 		E33498BF14C57B6A003F37F8 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E3640EAD14CC0C5000364108 /* DataTable.h */,
+				E3640EAE14CC0C5000364108 /* DataTable.m */,
 				E3640EAA14CBFCD300364108 /* CINParser.h */,
 				E3640EAB14CBFCD300364108 /* CINParser.m */,
 				E33498C514C57C1C003F37F8 /* InputMethodController.h */,
@@ -205,6 +210,7 @@
 				E33498AF14C57AF4003F37F8 /* main.m in Sources */,
 				E33498C714C57C1C003F37F8 /* InputMethodController.m in Sources */,
 				E3640EAC14CBFCD300364108 /* CINParser.m in Sources */,
+				E3640EAF14CC0C5000364108 /* DataTable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
