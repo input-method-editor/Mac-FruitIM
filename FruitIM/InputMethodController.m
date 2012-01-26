@@ -35,17 +35,36 @@
     #define Debug(...)
 #endif
 
+@interface InputMethodController ()
+
+- (void) _updateComposition:(id)client;
+
+@end
+
 @implementation InputMethodController
+{
+    ComposingBuffer *_buffer;
+}
 
 - (id) initWithServer:(IMKServer *)server delegate:(id)delegate client:(id)client
 {
     Debug(@"initWithServer:%@ delegate:%@ client:%@", server, delegate, client);
     if (self = [super initWithServer:server delegate:delegate client:client])
     {
+        DataTable *table = [DataTable getInstanceByName:@"bpmf"];
+        _buffer = [[ComposingBuffer alloc] initWithDataTable:table];
+
         Debug(@"Initialize success!");
     }
 
     return self;
+}
+
+- (void) dealloc
+{
+    Debug(@"Call dealloc");
+    [_buffer release];
+    [super dealloc];
 }
 
 #pragma mark IMKStateSetting Protocol
@@ -58,6 +77,7 @@
 - (void) deactivateServer:(id)client
 {
     Debug(@"Call deactivateServer:%@", client);
+    [self commitComposition:client];
 }
 
 #pragma mark IMKServerInput Protocol
@@ -65,12 +85,37 @@
 - (BOOL) inputText:(NSString *)text key:(NSInteger)keyCode modifiers:(NSUInteger)flags client:(id)client
 {
     Debug(@"Call inputText:%@ key:%ld modifiers:%lx client:%@", text, keyCode, flags, client);
-    return NO;
+    if ([_buffer inputText:text])
+        [self _updateComposition:client];
+
+    return YES;
 }
 
 - (void) commitComposition:(id)client
 {
     Debug(@"Call commitComposition:%@", client);
+    [client insertText:_buffer.composedString
+      replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+    [_buffer clear];
+
+    [self _updateComposition:client];
+}
+
+#pragma mark Private Methods
+
+- (void) _updateComposition:(id)client
+{
+    NSString *composedString = _buffer.composedString;
+    NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:
+                           [NSNumber numberWithInt:NSUnderlineStyleSingle], NSUnderlineStyleAttributeName,
+                           [NSNumber numberWithInt:0], NSMarkedClauseSegmentAttributeName, nil];
+
+    NSMutableAttributedString *attrString = [[[NSMutableAttributedString alloc]
+                                              initWithString:composedString attributes:attrs] autorelease];
+
+    [client setMarkedText:attrString
+           selectionRange:NSMakeRange(_buffer.cursorPosition, 0)
+         replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
 }
 
 @end

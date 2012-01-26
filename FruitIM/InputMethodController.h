@@ -29,6 +29,8 @@
 
 #import <Foundation/Foundation.h>
 #import <InputMethodKit/InputMethodKit.h>
+#import "DataTable.h"
+#import "ComposingBuffer.h"
 
 @interface InputMethodController : IMKInputController
 
