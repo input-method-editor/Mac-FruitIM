@@ -18,6 +18,7 @@
 		E372A42514C7E63000E26D1F /* favicon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E372A42314C7E63000E26D1F /* favicon.icns */; };
 		E372A42614C7E63000E26D1F /* faviconTIS.icns in Resources */ = {isa = PBXBuildFile; fileRef = E372A42414C7E63000E26D1F /* faviconTIS.icns */; };
 		E3C4682314D19D9A00F468B1 /* BopomofoReadingBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E3C4682214D19D9A00F468B1 /* BopomofoReadingBuffer.m */; };
+		E3C4684214D1A69600F468B1 /* ComposingBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E3C4684114D1A69600F468B1 /* ComposingBuffer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,8 +41,10 @@
 		E3640EAE14CC0C5000364108 /* DataTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTable.m; sourceTree = "<group>"; };
 		E372A42314C7E63000E26D1F /* favicon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = favicon.icns; sourceTree = "<group>"; };
 		E372A42414C7E63000E26D1F /* faviconTIS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = faviconTIS.icns; sourceTree = "<group>"; };
-		E3C4682114D19D9A00F468B1 /* BopomofoReadingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; path = BopomofoReadingBuffer.h; sourceTree = "<group>"; };
+		E3C4682114D19D9A00F468B1 /* BopomofoReadingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BopomofoReadingBuffer.h; sourceTree = "<group>"; };
 		E3C4682214D19D9A00F468B1 /* BopomofoReadingBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BopomofoReadingBuffer.m; sourceTree = "<group>"; };
+		E3C4684014D1A69600F468B1 /* ComposingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposingBuffer.h; sourceTree = "<group>"; };
+		E3C4684114D1A69600F468B1 /* ComposingBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposingBuffer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,8 @@
 		E33498BF14C57B6A003F37F8 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E3C4684014D1A69600F468B1 /* ComposingBuffer.h */,
+				E3C4684114D1A69600F468B1 /* ComposingBuffer.m */,
 				E3C4682114D19D9A00F468B1 /* BopomofoReadingBuffer.h */,
 				E3C4682214D19D9A00F468B1 /* BopomofoReadingBuffer.m */,
 				E3640EAD14CC0C5000364108 /* DataTable.h */,
@@ -217,6 +222,7 @@
 				E3640EAC14CBFCD300364108 /* CINParser.m in Sources */,
 				E3640EAF14CC0C5000364108 /* DataTable.m in Sources */,
 				E3C4682314D19D9A00F468B1 /* BopomofoReadingBuffer.m in Sources */,
+				E3C4684214D1A69600F468B1 /* ComposingBuffer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
