@@ -29,6 +29,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <InputMethodKit/InputMethodKit.h>
+#import "DataTable.h"
 
 int main(int argc, char *argv[])
 {
@@ -51,6 +52,9 @@ int main(int argc, char *argv[])
     }
 
     [NSBundle loadNibNamed:@"MainMenu" owner:[NSApplication sharedApplication]];
+
+    NSString *path = [mainBundle pathForResource:@"bpmf" ofType:@"cin"];
+    [DataTable registerName:@"bpmf" filePath:path];
 
     [[NSApplication sharedApplication] run];
 
