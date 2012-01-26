@@ -19,6 +19,7 @@
 		E372A42614C7E63000E26D1F /* faviconTIS.icns in Resources */ = {isa = PBXBuildFile; fileRef = E372A42414C7E63000E26D1F /* faviconTIS.icns */; };
 		E3C4682314D19D9A00F468B1 /* BopomofoReadingBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E3C4682214D19D9A00F468B1 /* BopomofoReadingBuffer.m */; };
 		E3C4684214D1A69600F468B1 /* ComposingBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E3C4684114D1A69600F468B1 /* ComposingBuffer.m */; };
+		E3C4684614D1A7CA00F468B1 /* bpmf.cin in Resources */ = {isa = PBXBuildFile; fileRef = E3C4684514D1A7CA00F468B1 /* bpmf.cin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		E3C4682214D19D9A00F468B1 /* BopomofoReadingBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BopomofoReadingBuffer.m; sourceTree = "<group>"; };
 		E3C4684014D1A69600F468B1 /* ComposingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposingBuffer.h; sourceTree = "<group>"; };
 		E3C4684114D1A69600F468B1 /* ComposingBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposingBuffer.m; sourceTree = "<group>"; };
+		E3C4684514D1A7CA00F468B1 /* bpmf.cin */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bpmf.cin; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,9 +150,18 @@
 		E3508E4F14C72644001BB656 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E3C4684414D1A7CA00F468B1 /* data */,
 				E3508E4A14C72639001BB656 /* icons */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		E3C4684414D1A7CA00F468B1 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				E3C4684514D1A7CA00F468B1 /* bpmf.cin */,
+			);
+			path = data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +218,7 @@
 				E33498B914C57AF4003F37F8 /* MainMenu.xib in Resources */,
 				E372A42514C7E63000E26D1F /* favicon.icns in Resources */,
 				E372A42614C7E63000E26D1F /* faviconTIS.icns in Resources */,
+				E3C4684614D1A7CA00F468B1 /* bpmf.cin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
