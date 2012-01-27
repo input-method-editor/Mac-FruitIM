@@ -46,6 +46,7 @@ static const KeyCode
 
 @interface InputMethodController ()
 
+- (void) _showCandidates;
 - (void) _updateComposition:(id)client;
 
 @end
@@ -131,8 +132,7 @@ static const KeyCode
             break;
 
         case KEY_MOVE_DOWN:
-            [_candidates updateCandidates];
-            [_candidates show:kIMKLocateCandidatesBelowHint];
+            [self _showCandidates];
             break;
     }
 
@@ -165,6 +165,12 @@ static const KeyCode
 }
 
 #pragma mark Private Methods
+
+- (void) _showCandidates
+{
+    [_candidates updateCandidates];
+    [_candidates show:kIMKLocateCandidatesBelowHint];
+}
 
 - (void) _updateComposition:(id)client
 {
