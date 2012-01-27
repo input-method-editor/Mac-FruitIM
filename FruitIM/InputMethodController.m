@@ -41,7 +41,8 @@ static const KeyCode
     KEY_DELETE = 51,
     KEY_BACKSPACE = 117,
     KEY_MOVE_LEFT = 123,
-    KEY_MOVE_RIGHT = 124;
+    KEY_MOVE_RIGHT = 124,
+    KEY_MOVE_DOWN = 125;
 
 @interface InputMethodController ()
 
@@ -127,6 +128,11 @@ static const KeyCode
 
         case KEY_MOVE_RIGHT:
             isPassed &= [_buffer moveCursorForward];
+            break;
+
+        case KEY_MOVE_DOWN:
+            [_candidates updateCandidates];
+            [_candidates show:kIMKLocateCandidatesBelowHint];
             break;
     }
 
