@@ -64,7 +64,8 @@
 {
     BOOL isWhitespace = [text isEqualTo:@" "];
     if (!isWhitespace)
-        [_readingBuffer insertSymbol:text];
+        if (![_readingBuffer insertSymbol:text])
+            return NO;
 
     NSString *syllable = _readingBuffer.string;
     if (isWhitespace || [_dataTable endKeyContainsText:text])
