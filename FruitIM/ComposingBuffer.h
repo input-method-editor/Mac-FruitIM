@@ -41,6 +41,7 @@
 - (BOOL) deleteForward;
 - (void) clear;
 - (BOOL) isEmpty;
+- (NSArray *) candidates;
 - (NSString *) originalString;
 - (NSString *) composedString;
 - (NSUInteger) cursorPosition;

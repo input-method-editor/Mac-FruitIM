@@ -128,6 +128,12 @@
     return _readingBuffer.isEmpty && _composingBuffer.count == 0;
 }
 
+- (NSArray *) candidates
+{
+    NSUInteger index = _cursorPosition > 0 ? _cursorPosition - 1 : 0;
+    return [_dataTable candidatesForText:[_composingBuffer objectAtIndex:index]];
+}
+
 - (NSString *) originalString
 {
     return [_composingBuffer componentsJoinedByString:@""];
