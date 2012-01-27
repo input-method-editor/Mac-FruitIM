@@ -44,6 +44,7 @@
 @implementation InputMethodController
 {
     ComposingBuffer *_buffer;
+    IMKCandidates *_candidates;
 }
 
 - (id) initWithServer:(IMKServer *)server delegate:(id)delegate client:(id)client
@@ -53,6 +54,8 @@
     {
         DataTable *table = [DataTable getInstanceByName:@"bpmf"];
         _buffer = [[ComposingBuffer alloc] initWithDataTable:table];
+        _candidates = [[IMKCandidates alloc] initWithServer:server
+                                                  panelType:kIMKSingleRowSteppingCandidatePanel];
 
         Debug(@"Initialize success!");
     }
