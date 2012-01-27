@@ -38,6 +38,8 @@
 typedef NSInteger KeyCode;
 static const KeyCode
     KEY_RETURN = 36,
+    KEY_DELETE = 51,
+    KEY_BACKSPACE = 117,
     KEY_MOVE_LEFT = 123,
     KEY_MOVE_RIGHT = 124;
 
@@ -96,6 +98,14 @@ static const KeyCode
     {
         case KEY_RETURN:
             [self commitComposition:client];
+            break;
+
+        case KEY_DELETE:
+            [_buffer deleteBackward];
+            break;
+
+        case KEY_BACKSPACE:
+            [_buffer deleteForward];
             break;
 
         case KEY_MOVE_LEFT:
