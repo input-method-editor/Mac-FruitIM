@@ -35,6 +35,11 @@
     #define Debug(...)
 #endif
 
+typedef NSInteger KeyCode;
+static const KeyCode
+    KEY_MOVE_LEFT = 123,
+    KEY_MOVE_RIGHT = 124;
+
 @interface InputMethodController ()
 
 - (void) _updateComposition:(id)client;
@@ -85,6 +90,18 @@
 - (BOOL) inputText:(NSString *)text key:(NSInteger)keyCode modifiers:(NSUInteger)flags client:(id)client
 {
     Debug(@"Call inputText:%@ key:%ld modifiers:%lx client:%@", text, keyCode, flags, client);
+
+    switch (keyCode)
+    {
+        case KEY_MOVE_LEFT:
+            [_buffer moveCursorBackward];
+            break;
+
+        case KEY_MOVE_RIGHT:
+            [_buffer moveCursorForward];
+            break;
+    }
+
     if ([_buffer inputText:text])
         [self _updateComposition:client];
 
