@@ -46,6 +46,7 @@ static const KeyCode
 
 @interface InputMethodController ()
 
+- (BOOL) _shouldIgnoreKey:(NSInteger)keyCode modifiers:(NSUInteger)flags;
 - (void) _showCandidates;
 - (void) _updateComposition:(id)client;
 
@@ -107,6 +108,9 @@ static const KeyCode
 - (BOOL) inputText:(NSString *)text key:(NSInteger)keyCode modifiers:(NSUInteger)flags client:(id)client
 {
     Debug(@"Call inputText:%@ key:%ld modifiers:%lx client:%@", text, keyCode, flags, client);
+
+    if ([self _shouldIgnoreKey:keyCode modifiers:flags])
+        return NO;
 
     BOOL isPassed = true;
     switch (keyCode)
@@ -172,6 +176,15 @@ static const KeyCode
 }
 
 #pragma mark Private Methods
+
+- (BOOL) _shouldIgnoreKey:(NSInteger)keyCode modifiers:(NSUInteger)flags
+{
+    return _buffer.isEmpty && (keyCode == KEY_RETURN || keyCode == KEY_DELETE ||
+                               keyCode == KEY_BACKSPACE || keyCode == KEY_MOVE_LEFT ||
+                               keyCode == KEY_MOVE_RIGHT || keyCode == KEY_MOVE_DOWN ||
+                               (flags & NSCommandKeyMask) || (flags & NSControlKeyMask) ||
+                               (flags & NSAlternateKeyMask) || (flags & NSNumericPadKeyMask));
+}
 
 - (void) _showCandidates
 {
