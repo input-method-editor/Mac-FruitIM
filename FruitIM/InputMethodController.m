@@ -94,6 +94,7 @@ static const KeyCode
 {
     Debug(@"Call inputText:%@ key:%ld modifiers:%lx client:%@", text, keyCode, flags, client);
 
+    BOOL isPassed = true;
     switch (keyCode)
     {
         case KEY_RETURN:
@@ -101,24 +102,29 @@ static const KeyCode
             break;
 
         case KEY_DELETE:
-            [_buffer deleteBackward];
+            isPassed &= [_buffer deleteBackward];
             break;
 
         case KEY_BACKSPACE:
-            [_buffer deleteForward];
+            isPassed &= [_buffer deleteForward];
             break;
 
         case KEY_MOVE_LEFT:
-            [_buffer moveCursorBackward];
+            isPassed &= [_buffer moveCursorBackward];
             break;
 
         case KEY_MOVE_RIGHT:
-            [_buffer moveCursorForward];
+            isPassed &= [_buffer moveCursorForward];
             break;
     }
 
-    if ([_buffer inputText:text])
+    BOOL inputResult = [_buffer inputText:text];
+    isPassed &= inputResult;
+    if (inputResult)
         [self _updateComposition:client];
+
+    if (!isPassed)
+        NSBeep();
 
     return YES;
 }
