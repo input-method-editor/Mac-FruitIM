@@ -112,7 +112,7 @@ static const KeyCode
     if ([self _shouldIgnoreKey:keyCode modifiers:flags])
         return NO;
 
-    BOOL isPassed = true;
+    BOOL isPassed = YES, isProcessed = YES;
     switch (keyCode)
     {
         case KEY_RETURN:
@@ -138,19 +138,18 @@ static const KeyCode
         case KEY_MOVE_DOWN:
             [self _showCandidates];
             break;
+
+        default:
+            isProcessed = NO;
     }
 
-    if ([text isEqualToString:@" "] && _buffer.isComposed)
-    {
-        [self _showCandidates];
-    }
-    else
-    {
-        BOOL inputResult = [_buffer inputText:text];
-        isPassed &= inputResult;
-        if (inputResult)
-            [self _updateComposition:client];
-    }
+    if (!isProcessed)
+        if ([text isEqualToString:@" "] && _buffer.isComposed)
+            [self _showCandidates];
+        else
+            isPassed &= [_buffer inputText:text];
+
+    [self _updateComposition:client];
 
     if (!isPassed)
         NSBeep();
