@@ -112,7 +112,7 @@
     if (!_readingBuffer.isEmpty || _cursorPosition == _composingBuffer.count)
         return NO;
 
-    [_composingBuffer removeObjectAtIndex:_cursorPosition--];
+    [_composingBuffer removeObjectAtIndex:_cursorPosition];
     return YES;
 }
 
