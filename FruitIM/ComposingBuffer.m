@@ -135,6 +135,11 @@
     return _readingBuffer.isEmpty && _composingBuffer.count == 0;
 }
 
+- (BOOL) isComposed
+{
+    return _readingBuffer.isEmpty;
+}
+
 - (NSArray *) candidates
 {
     NSUInteger index = _cursorPosition > 0 ? _cursorPosition - 1 : 0;
