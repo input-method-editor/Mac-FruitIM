@@ -45,6 +45,7 @@
 {
     ComposingBuffer *_buffer;
     IMKCandidates *_candidates;
+    id _candidateClient;
 }
 
 - (id) initWithServer:(IMKServer *)server delegate:(id)delegate client:(id)client
@@ -68,6 +69,14 @@
     Debug(@"Call dealloc");
     [_buffer release];
     [super dealloc];
+}
+
+- (void) candidateSelected:(NSAttributedString *)candidateString
+{
+    Debug(@"Call candidateSelected:%@", candidateString);
+    [_buffer updateComposedStringWithString:candidateString.string];
+    [self _updateComposition:_candidateClient];
+    _candidateClient = nil;
 }
 
 #pragma mark IMKStateSetting Protocol
@@ -102,6 +111,13 @@
     [_buffer clear];
 
     [self _updateComposition:client];
+}
+
+- (NSArray *) candidates:(id)client
+{
+    Debug(@"Call candidates:%@", client);
+    _candidateClient = client;
+    return _buffer.candidates;
 }
 
 #pragma mark Private Methods
