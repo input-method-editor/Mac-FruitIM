@@ -37,6 +37,7 @@
 
 typedef NSInteger KeyCode;
 static const KeyCode
+    KEY_RETURN = 36,
     KEY_MOVE_LEFT = 123,
     KEY_MOVE_RIGHT = 124;
 
@@ -93,6 +94,10 @@ static const KeyCode
 
     switch (keyCode)
     {
+        case KEY_RETURN:
+            [self commitComposition:client];
+            break;
+
         case KEY_MOVE_LEFT:
             [_buffer moveCursorBackward];
             break;
