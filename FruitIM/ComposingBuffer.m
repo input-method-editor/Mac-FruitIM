@@ -141,6 +141,19 @@
     return [_dataTable candidatesForText:[_composingBuffer objectAtIndex:index]];
 }
 
+- (void) updateComposedStringWithString:(NSString *)string
+{
+    NSUInteger length = string.length;
+    if (length > 1 && length > _cursorPosition)
+        return;
+
+    if (_cursorPosition == 0)
+        _cursorPosition++;
+
+    [_composedString replaceCharactersInRange:NSMakeRange(_cursorPosition - length, length)
+                                   withString:string];
+}
+
 - (NSString *) originalString
 {
     return [_composingBuffer componentsJoinedByString:@""];
