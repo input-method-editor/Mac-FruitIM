@@ -41,6 +41,8 @@
 - (BOOL) deleteForward;
 - (void) clear;
 - (BOOL) isEmpty;
+- (NSArray *) candidates;
+- (void) updateComposedStringWithString:(NSString *)candidateString;
 - (NSString *) originalString;
 - (NSString *) composedString;
 - (NSUInteger) cursorPosition;

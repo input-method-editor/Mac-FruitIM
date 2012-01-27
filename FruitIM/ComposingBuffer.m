@@ -34,6 +34,7 @@
     DataTable *_dataTable;
     BopomofoReadingBuffer *_readingBuffer;
     NSMutableArray *_composingBuffer;
+    NSMutableString *_composedString;
     NSUInteger _cursorPosition;
 }
 
@@ -45,6 +46,7 @@
 
         _composingBuffer = [[NSMutableArray alloc] init];
         _readingBuffer = [[BopomofoReadingBuffer alloc] init];
+        _composedString = [[NSMutableString alloc] init];
     }
 
     return self;
@@ -52,6 +54,7 @@
 
 - (void) dealloc
 {
+    [_composedString release];
     [_readingBuffer release];
     [_composingBuffer release];
     [_dataTable release];
@@ -70,7 +73,8 @@
         if (!candidates)
             return NO;
 
-        [_composingBuffer insertObject:syllable atIndex:_cursorPosition++];
+        [_composingBuffer insertObject:syllable atIndex:_cursorPosition];
+        [_composedString insertString:[candidates objectAtIndex:0] atIndex:_cursorPosition++];
         [_readingBuffer clear];
     }
 
@@ -104,6 +108,7 @@
         return NO;
 
     [_composingBuffer removeObjectAtIndex:--_cursorPosition];
+    [_composedString deleteCharactersInRange:NSMakeRange(_cursorPosition, 1)];
     return YES;
 }
 
@@ -113,6 +118,7 @@
         return NO;
 
     [_composingBuffer removeObjectAtIndex:_cursorPosition];
+    [_composedString deleteCharactersInRange:NSMakeRange(_cursorPosition, 1)];
     return YES;
 }
 
@@ -120,12 +126,32 @@
 {
     [_readingBuffer clear];
     [_composingBuffer removeAllObjects];
+    [_composedString setString:@""];
     _cursorPosition = 0;
 }
 
 - (BOOL) isEmpty
 {
     return _readingBuffer.isEmpty && _composingBuffer.count == 0;
+}
+
+- (NSArray *) candidates
+{
+    NSUInteger index = _cursorPosition > 0 ? _cursorPosition - 1 : 0;
+    return [_dataTable candidatesForText:[_composingBuffer objectAtIndex:index]];
+}
+
+- (void) updateComposedStringWithString:(NSString *)string
+{
+    NSUInteger length = string.length;
+    if (length > 1 && length > _cursorPosition)
+        return;
+
+    if (_cursorPosition == 0)
+        _cursorPosition++;
+
+    [_composedString replaceCharactersInRange:NSMakeRange(_cursorPosition - length, length)
+                                   withString:string];
 }
 
 - (NSString *) originalString
@@ -135,14 +161,9 @@
 
 - (NSString *) composedString
 {
-    NSMutableString *result = [[[NSMutableString alloc] init] autorelease];
-
-    NSUInteger index = 0;
-    for ( ; index < _cursorPosition; index++)
-    {
-        NSArray *candidates = [_dataTable candidatesForText:[_composingBuffer objectAtIndex:index]];
-        [result appendString:[candidates objectAtIndex:0]];
-    }
+    NSString *composedStringBeforeCursor = [_composedString substringToIndex:_cursorPosition];
+    NSString *composedStringAfterCursor = [_composedString substringFromIndex:_cursorPosition];
+    NSMutableString *readingString = [[[NSMutableString alloc] init] autorelease];
 
     NSString *syllable = _readingBuffer.string;
     NSUInteger length = syllable.length;
@@ -150,17 +171,12 @@
     {
         NSString *key = [syllable substringWithRange:NSMakeRange(index, 1)];
         NSString *character = [_dataTable characterForText:key];
-        [result appendString:character];
+        [readingString appendString:character];
     }
 
-    NSUInteger count = _composingBuffer.count;
-    for ( ; index < count; index++)
-    {
-        NSArray *candidates = [_dataTable candidatesForText:[_composingBuffer objectAtIndex:index]];
-        [result appendString:[candidates objectAtIndex:0]];
-    }
+    return [NSString stringWithFormat:@"%@%@%@",
+            composedStringBeforeCursor, readingString, composedStringAfterCursor];
 
-    return result;
 }
 
 - (NSUInteger) cursorPosition
