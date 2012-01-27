@@ -136,10 +136,17 @@ static const KeyCode
             break;
     }
 
-    BOOL inputResult = [_buffer inputText:text];
-    isPassed &= inputResult;
-    if (inputResult)
-        [self _updateComposition:client];
+    if ([text isEqualToString:@" "] && _buffer.isComposed)
+    {
+        [self _showCandidates];
+    }
+    else
+    {
+        BOOL inputResult = [_buffer inputText:text];
+        isPassed &= inputResult;
+        if (inputResult)
+            [self _updateComposition:client];
+    }
 
     if (!isPassed)
         NSBeep();
