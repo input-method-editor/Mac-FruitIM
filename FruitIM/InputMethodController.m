@@ -157,9 +157,10 @@ static const KeyCode
 
 - (BOOL) _shouldIgnoreKey:(NSInteger)keyCode modifiers:(NSUInteger)flags
 {
-    return _buffer.isEmpty && (keyCode == KEY_RETURN || keyCode == KEY_DELETE ||
-                               keyCode == KEY_BACKSPACE || keyCode == KEY_MOVE_LEFT ||
-                               keyCode == KEY_MOVE_RIGHT || keyCode == KEY_MOVE_DOWN ||
+    return _buffer.isEmpty && (keyCode == KEY_RETURN || keyCode == KEY_ESC ||
+                               keyCode == KEY_DELETE || keyCode == KEY_BACKSPACE ||
+                               keyCode == KEY_MOVE_LEFT || keyCode == KEY_MOVE_RIGHT ||
+                               keyCode == KEY_MOVE_DOWN ||
                                (flags & NSCommandKeyMask) || (flags & NSControlKeyMask) ||
                                (flags & NSAlternateKeyMask) || (flags & NSNumericPadKeyMask));
 }
