@@ -31,6 +31,8 @@
 #import <InputMethodKit/InputMethodKit.h>
 #import "DataTable.h"
 
+IMKCandidates *sharedCandidates;
+
 int main(int argc, char *argv[])
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -51,6 +53,14 @@ int main(int argc, char *argv[])
         return -1;
     }
 
+    sharedCandidates = [[IMKCandidates alloc] initWithServer:server
+                                                   panelType:kIMKSingleRowSteppingCandidatePanel];
+    if (!sharedCandidates)
+    {
+        NSLog(@"Fatal error: Cannot initialize shared candidate panel with connection %@.", connectionName);
+        return -1;
+    }
+
     [NSBundle loadNibNamed:@"MainMenu" owner:[NSApplication sharedApplication]];
 
     NSString *path = [mainBundle pathForResource:@"bpmf" ofType:@"cin"];
@@ -58,6 +68,7 @@ int main(int argc, char *argv[])
 
     [[NSApplication sharedApplication] run];
 
+    [sharedCandidates release];
     [server release];
     [pool drain];
 

@@ -35,6 +35,8 @@
     #define Debug(...)
 #endif
 
+extern IMKCandidates *sharedCandidates;
+
 typedef NSInteger KeyCode;
 static const KeyCode
     KEY_RETURN = 36,
@@ -57,7 +59,6 @@ static const KeyCode
 @implementation InputMethodController
 {
     ComposingBuffer *_buffer;
-    IMKCandidates *_candidates;
     id _candidateClient;
 }
 
@@ -68,8 +69,6 @@ static const KeyCode
     {
         DataTable *table = [DataTable getInstanceByName:@"bpmf"];
         _buffer = [[ComposingBuffer alloc] initWithDataTable:table];
-        _candidates = [[IMKCandidates alloc] initWithServer:server
-                                                  panelType:kIMKSingleRowSteppingCandidatePanel];
 
         Debug(@"Initialize success!");
     }
@@ -210,8 +209,8 @@ static const KeyCode
 
 - (void) _showCandidates
 {
-    [_candidates updateCandidates];
-    [_candidates show:kIMKLocateCandidatesBelowHint];
+    [sharedCandidates updateCandidates];
+    [sharedCandidates show:kIMKLocateCandidatesBelowHint];
 }
 
 - (void) _updateComposition:(id)client
