@@ -61,7 +61,19 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    [NSBundle loadNibNamed:@"MainMenu" owner:[NSApplication sharedApplication]];
+    NSString *mainNibName = [[mainBundle infoDictionary] objectForKey:@"NSMainNibFile"];
+    if (!mainNibName)
+    {
+        NSLog(@"Fatal error: NSMainNibFile key not defined in Info.plist.");
+        return -1;
+    }
+
+    BOOL loadResult = [NSBundle loadNibNamed:mainNibName owner:[NSApplication sharedApplication]];
+    if (!loadResult)
+    {
+        NSLog(@"Fatal error: Cannot load %@.", mainNibName);
+        return -1;
+    }
 
     NSString *path = [mainBundle pathForResource:@"bpmf" ofType:@"cin"];
     [DataTable registerName:@"bpmf" filePath:path];
