@@ -93,7 +93,7 @@ static NSString *_FORMAT_END = @"end";
         NSString *key = [line substringWithRange:NSMakeRange(1, index - 1)];
         NSString *value = [line substringFromIndex:index + 2];
         if (![value isEqualToString:_FORMAT_BEGIN])
-            [dict setValue:value forKey:key];
+            [dict setObject:value forKey:key];
         else if (![self _parseList:enumerator name:key storeIn:dict])
             return NO;
     }
@@ -121,18 +121,18 @@ static NSString *_FORMAT_END = @"end";
         NSString *value = [[line substringFromIndex:index + 1] stringByTrimmingCharactersInSet:
                            [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
-        NSMutableArray *valueList = [valueDict valueForKey:key];
+        NSMutableArray *valueList = [valueDict objectForKey:key];
         if (!valueList)
         {
             valueList = [[[NSMutableArray alloc] init] autorelease];
-            [valueDict setValue:valueList forKey:key];
+            [valueDict setObject:valueList forKey:key];
         }
 
         [valueList addObject:value];
         line = [self _nextLine:enumerator];
     }
 
-    [dict setValue:valueDict forKey:name];
+    [dict setObject:valueDict forKey:name];
     return YES;
 }
 
