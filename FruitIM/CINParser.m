@@ -105,10 +105,14 @@ static NSString *_FORMAT_END = @"end";
             storeIn:(NSMutableDictionary *)dict
 {
     NSMutableDictionary *valueDict = [[[NSMutableDictionary alloc] init] autorelease];
+    NSString *endString = [NSString stringWithFormat:@"%c%@  %@", _FORMAT_START, name, _FORMAT_END];
 
-    NSString *line;
-    while ([(line = [self _nextLine:enumerator]) characterAtIndex:0] != _FORMAT_START)
+    NSString *line = [self _nextLine:enumerator];
+    while (![line isEqualToString:endString])
     {
+        if (line == nil)
+            return NO;
+
         NSUInteger index = [line rangeOfString:_TOKEN_SEPARATOR].location;
         if (index == NSNotFound)
             return NO;
@@ -125,17 +129,11 @@ static NSString *_FORMAT_END = @"end";
         }
 
         [valueList addObject:value];
+        line = [self _nextLine:enumerator];
     }
 
     [dict setValue:valueDict forKey:name];
-
-    NSUInteger index = [line rangeOfString:_TOKEN_SEPARATOR].location;
-    if (index == NSNotFound)
-        return NO;
-
-    NSString *key = [line substringWithRange:NSMakeRange(1, index - 1)];
-    NSString *value = [line substringFromIndex:index + 2];
-    return [key isEqualToString:name] && [value isEqualToString:_FORMAT_END];
+    return YES;
 }
 
 - (NSString *) _nextLine:(NSEnumerator *)enumerator
