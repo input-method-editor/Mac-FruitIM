@@ -48,6 +48,7 @@ static const KeyCode
 @interface InputMethodController ()
 
 - (BOOL) _shouldIgnoreKey:(NSInteger)keyCode modifiers:(NSUInteger)flags;
+- (BOOL) _handleOperationKey:(NSInteger)keyCode client:(id)client;
 - (void) _showCandidates;
 - (void) _updateComposition:(id)client;
 
@@ -124,51 +125,13 @@ static const KeyCode
         return YES;
     }
 
-    BOOL isPassed = YES, isProcessed = YES;
-    switch (keyCode)
-    {
-        case KEY_RETURN:
-            [self commitComposition:client];
-            break;
-
-        case KEY_ESC:
-            isPassed &= [_buffer cancelComposing];
-            break;
-
-        case KEY_DELETE:
-            isPassed &= [_buffer deleteBackward];
-            break;
-
-        case KEY_BACKSPACE:
-            isPassed &= [_buffer deleteForward];
-            break;
-
-        case KEY_MOVE_LEFT:
-            isPassed &= [_buffer moveCursorBackward];
-            break;
-
-        case KEY_MOVE_RIGHT:
-            isPassed &= [_buffer moveCursorForward];
-            break;
-
-        case KEY_MOVE_DOWN:
-            [self _showCandidates];
-            break;
-
-        default:
-            isProcessed = NO;
-    }
-
-    if (!isProcessed)
+    if (![self _handleOperationKey:keyCode client:client])
         if ([text isEqualToString:@" "] && _buffer.isComposed)
             [self _showCandidates];
-        else
-            isPassed &= [_buffer inputText:text];
+        else if (![_buffer inputText:text])
+            NSBeep();
 
     [self _updateComposition:client];
-
-    if (!isPassed)
-        NSBeep();
 
     return YES;
 }
@@ -199,6 +162,49 @@ static const KeyCode
                                keyCode == KEY_MOVE_RIGHT || keyCode == KEY_MOVE_DOWN ||
                                (flags & NSCommandKeyMask) || (flags & NSControlKeyMask) ||
                                (flags & NSAlternateKeyMask) || (flags & NSNumericPadKeyMask));
+}
+
+- (BOOL) _handleOperationKey:(NSInteger)keyCode client:(id)client
+{
+    BOOL isPassed = YES;
+    switch (keyCode)
+    {
+        case KEY_RETURN:
+            [self commitComposition:client];
+            break;
+
+        case KEY_ESC:
+            isPassed = [_buffer cancelComposing];
+            break;
+
+        case KEY_DELETE:
+            isPassed = [_buffer deleteBackward];
+            break;
+
+        case KEY_BACKSPACE:
+            isPassed = [_buffer deleteForward];
+            break;
+
+        case KEY_MOVE_LEFT:
+            isPassed = [_buffer moveCursorBackward];
+            break;
+
+        case KEY_MOVE_RIGHT:
+            isPassed = [_buffer moveCursorForward];
+            break;
+
+        case KEY_MOVE_DOWN:
+            [self _showCandidates];
+            break;
+
+        default:
+            return NO;
+    }
+
+    if (!isPassed)
+        NSBeep();
+
+    return YES;
 }
 
 - (void) _showCandidates
