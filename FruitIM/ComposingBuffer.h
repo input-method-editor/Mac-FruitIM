@@ -1,5 +1,5 @@
 //
-//  InputMethodController.h
+//  ComposingBuffer.h
 //
 //  Copyright (c) 2012, Chi-En Wu All rights reserved.
 //
@@ -28,10 +28,25 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <InputMethodKit/InputMethodKit.h>
+#import "BopomofoReadingBuffer.h"
 #import "DataTable.h"
-#import "ComposingBuffer.h"
 
-@interface InputMethodController : IMKInputController
+@interface ComposingBuffer : NSObject
+
+- (id) initWithDataTable:(DataTable *)table;
+- (BOOL) inputText:(NSString *)text;
+- (BOOL) moveCursorBackward;
+- (BOOL) moveCursorForward;
+- (BOOL) deleteBackward;
+- (BOOL) deleteForward;
+- (BOOL) cancelComposing;
+- (void) clear;
+- (BOOL) isEmpty;
+- (BOOL) isComposed;
+- (NSArray *) candidates;
+- (void) updateComposedStringWithString:(NSString *)candidateString;
+- (NSString *) originalString;
+- (NSString *) composedString;
+- (NSUInteger) cursorPosition;
 
 @end

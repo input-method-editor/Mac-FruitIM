@@ -35,17 +35,60 @@
     #define Debug(...)
 #endif
 
+extern IMKCandidates *sharedCandidates;
+
+typedef NSInteger KeyCode;
+static const KeyCode
+    KEY_RETURN = 36,
+    KEY_DELETE = 51,
+    KEY_ESC = 53,
+    KEY_BACKSPACE = 117,
+    KEY_MOVE_LEFT = 123,
+    KEY_MOVE_RIGHT = 124,
+    KEY_MOVE_DOWN = 125;
+
+@interface InputMethodController ()
+
+- (BOOL) _shouldIgnoreKey:(NSInteger)keyCode modifiers:(NSUInteger)flags;
+- (BOOL) _handleOperationKey:(NSInteger)keyCode client:(id)client;
+- (void) _showCandidates;
+- (void) _updateComposition:(id)client;
+
+@end
+
 @implementation InputMethodController
+{
+    ComposingBuffer *_buffer;
+    id _candidateClient;
+}
 
 - (id) initWithServer:(IMKServer *)server delegate:(id)delegate client:(id)client
 {
     Debug(@"initWithServer:%@ delegate:%@ client:%@", server, delegate, client);
     if (self = [super initWithServer:server delegate:delegate client:client])
     {
+        DataTable *table = [DataTable getInstanceByName:@"bpmf"];
+        _buffer = [[ComposingBuffer alloc] initWithDataTable:table];
+
         Debug(@"Initialize success!");
     }
 
     return self;
+}
+
+- (void) dealloc
+{
+    Debug(@"Call dealloc");
+    [_buffer release];
+    [super dealloc];
+}
+
+- (void) candidateSelected:(NSAttributedString *)candidateString
+{
+    Debug(@"Call candidateSelected:%@", candidateString);
+    [_buffer updateComposedStringWithString:candidateString.string];
+    [self _updateComposition:_candidateClient];
+    _candidateClient = nil;
 }
 
 #pragma mark IMKStateSetting Protocol
@@ -58,6 +101,7 @@
 - (void) deactivateServer:(id)client
 {
     Debug(@"Call deactivateServer:%@", client);
+    [self commitComposition:client];
 }
 
 #pragma mark IMKServerInput Protocol
@@ -65,12 +109,123 @@
 - (BOOL) inputText:(NSString *)text key:(NSInteger)keyCode modifiers:(NSUInteger)flags client:(id)client
 {
     Debug(@"Call inputText:%@ key:%ld modifiers:%lx client:%@", text, keyCode, flags, client);
-    return NO;
+
+    if ([self _shouldIgnoreKey:keyCode modifiers:flags])
+        return NO;
+
+    if ((flags & NSShiftKeyMask) || (flags & NSAlphaShiftKeyMask))
+    {
+        [self commitComposition:client];
+        if ((flags & NSShiftKeyMask) && (flags & NSAlphaShiftKeyMask))
+            return NO;
+
+        [client insertText:[text lowercaseString]
+          replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+        return YES;
+    }
+
+    if (![self _handleOperationKey:keyCode client:client])
+        if ([text isEqualToString:@" "] && _buffer.isComposed)
+            [self _showCandidates];
+        else if (![_buffer inputText:text])
+            NSBeep();
+
+    [self _updateComposition:client];
+
+    return YES;
 }
 
 - (void) commitComposition:(id)client
 {
     Debug(@"Call commitComposition:%@", client);
+    [client insertText:_buffer.composedString
+      replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+    [_buffer clear];
+
+    [self _updateComposition:client];
+}
+
+- (NSArray *) candidates:(id)client
+{
+    Debug(@"Call candidates:%@", client);
+    _candidateClient = client;
+    return _buffer.candidates;
+}
+
+#pragma mark Private Methods
+
+- (BOOL) _shouldIgnoreKey:(NSInteger)keyCode modifiers:(NSUInteger)flags
+{
+    return _buffer.isEmpty && (keyCode == KEY_RETURN || keyCode == KEY_ESC ||
+                               keyCode == KEY_DELETE || keyCode == KEY_BACKSPACE ||
+                               keyCode == KEY_MOVE_LEFT || keyCode == KEY_MOVE_RIGHT ||
+                               keyCode == KEY_MOVE_DOWN ||
+                               (flags & NSCommandKeyMask) || (flags & NSControlKeyMask) ||
+                               (flags & NSAlternateKeyMask) || (flags & NSNumericPadKeyMask));
+}
+
+- (BOOL) _handleOperationKey:(NSInteger)keyCode client:(id)client
+{
+    BOOL isPassed = YES;
+    switch (keyCode)
+    {
+        case KEY_RETURN:
+            [self commitComposition:client];
+            break;
+
+        case KEY_ESC:
+            isPassed = [_buffer cancelComposing];
+            break;
+
+        case KEY_DELETE:
+            isPassed = [_buffer deleteBackward];
+            break;
+
+        case KEY_BACKSPACE:
+            isPassed = [_buffer deleteForward];
+            break;
+
+        case KEY_MOVE_LEFT:
+            isPassed = [_buffer moveCursorBackward];
+            break;
+
+        case KEY_MOVE_RIGHT:
+            isPassed = [_buffer moveCursorForward];
+            break;
+
+        case KEY_MOVE_DOWN:
+            [self _showCandidates];
+            break;
+
+        default:
+            return NO;
+    }
+
+    if (!isPassed)
+        NSBeep();
+
+    return YES;
+}
+
+- (void) _showCandidates
+{
+    [sharedCandidates updateCandidates];
+    [sharedCandidates show:kIMKLocateCandidatesBelowHint];
+}
+
+- (void) _updateComposition:(id)client
+{
+    NSString *composedString = _buffer.composedString;
+    NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:
+                           [NSNumber numberWithInt:NSUnderlineStyleSingle], NSUnderlineStyleAttributeName,
+                           [NSNumber numberWithInt:0], NSMarkedClauseSegmentAttributeName, nil];
+
+    NSMutableAttributedString *attrString = [[[NSMutableAttributedString alloc]
+                                              initWithString:composedString attributes:attrs] autorelease];
+
+    [client setMarkedText:attrString
+           selectionRange:NSMakeRange(_buffer.cursorPosition, 0)
+         replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
 }
 
 @end

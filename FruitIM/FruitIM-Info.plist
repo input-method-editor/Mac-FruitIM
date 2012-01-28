@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>0.1.0</string>
 	<key>CFBundleSignature</key>
 	<string>FRIM</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>34</string>
 	<key>InputMethodConnectionName</key>
 	<string>FIME_1_Connection</string>
 	<key>InputMethodServerControllerClass</key>

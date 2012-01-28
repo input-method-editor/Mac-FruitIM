@@ -1,5 +1,5 @@
 //
-//  InputMethodController.h
+//  DataTable.h
 //
 //  Copyright (c) 2012, Chi-En Wu All rights reserved.
 //
@@ -28,10 +28,27 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <InputMethodKit/InputMethodKit.h>
-#import "DataTable.h"
-#import "ComposingBuffer.h"
+#import "CINParser.h"
 
-@interface InputMethodController : IMKInputController
+@interface DataTable : NSObject
+
+#pragma mark Register/Unregister Instances
++ (NSString *) pathForName:(NSString *)name;
++ (NSArray *) registeredNames;
++ (void) registerName:(NSString *)name filePath:(NSString *)path;
++ (void) unregisterName:(NSString *)name;
+
+#pragma mark Access Instances
++ (DataTable *) getInstanceByName:(NSString *)name;
++ (NSArray *) instanceNames;
++ (void) destroyInstanceByName:(NSString *)name;
++ (void) destroyAllInstances;
+
+#pragma mark Access Data Table
+- (NSString *) name;
+- (NSString *) characterForText:(NSString *)text;
+- (NSArray *) candidatesForText:(NSString *)text;
+- (BOOL) selectionKeyContainsText:(NSString *)text;
+- (BOOL) endKeyContainsText:(NSString *)text;
 
 @end

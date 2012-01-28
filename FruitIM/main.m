@@ -29,6 +29,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import <InputMethodKit/InputMethodKit.h>
+#import "DataTable.h"
+
+IMKCandidates *sharedCandidates;
 
 int main(int argc, char *argv[])
 {
@@ -39,6 +42,7 @@ int main(int argc, char *argv[])
     if (!connectionName)
     {
         NSLog(@"Fatal error: InputMethodConnectionName key not defined in Info.plist.");
+        [pool drain];
         return -1;
     }
 
@@ -47,13 +51,46 @@ int main(int argc, char *argv[])
     if (!server)
     {
         NSLog(@"Fatal error: Cannot initialize input method server with connection %@.", connectionName);
+        [pool drain];
         return -1;
     }
 
-    [NSBundle loadNibNamed:@"MainMenu" owner:[NSApplication sharedApplication]];
+    sharedCandidates = [[IMKCandidates alloc] initWithServer:server
+                                                   panelType:kIMKSingleRowSteppingCandidatePanel];
+    if (!sharedCandidates)
+    {
+        NSLog(@"Fatal error: Cannot initialize shared candidate panel with connection %@.", connectionName);
+        [server release];
+        [pool drain];
+        return -1;
+    }
+
+    NSString *mainNibName = [[mainBundle infoDictionary] objectForKey:@"NSMainNibFile"];
+    if (!mainNibName)
+    {
+        NSLog(@"Fatal error: NSMainNibFile key not defined in Info.plist.");
+        [sharedCandidates release];
+        [server release];
+        [pool drain];
+        return -1;
+    }
+
+    BOOL loadResult = [NSBundle loadNibNamed:mainNibName owner:[NSApplication sharedApplication]];
+    if (!loadResult)
+    {
+        NSLog(@"Fatal error: Cannot load %@.", mainNibName);
+        [sharedCandidates release];
+        [server release];
+        [pool drain];
+        return -1;
+    }
+
+    NSString *path = [mainBundle pathForResource:@"bpmf" ofType:@"cin"];
+    [DataTable registerName:@"bpmf" filePath:path];
 
     [[NSApplication sharedApplication] run];
 
+    [sharedCandidates release];
     [server release];
     [pool drain];
 

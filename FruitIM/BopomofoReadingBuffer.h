@@ -1,5 +1,5 @@
 //
-//  InputMethodController.h
+//  BopomofoReadingBuffer.h
 //
 //  Copyright (c) 2012, Chi-En Wu All rights reserved.
 //
@@ -28,10 +28,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <InputMethodKit/InputMethodKit.h>
-#import "DataTable.h"
-#import "ComposingBuffer.h"
 
-@interface InputMethodController : IMKInputController
+@interface BopomofoReadingBuffer : NSObject
+
+- (BOOL) insertSymbol:(NSString *)symbol;
+- (BOOL) erease;
+- (void) clear;
+- (BOOL) isEmpty;
+- (NSUInteger) length;
+- (NSString *) string;
 
 @end

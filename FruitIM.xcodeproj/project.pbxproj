@@ -13,8 +13,13 @@
 		E33498B914C57AF4003F37F8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E33498B714C57AF4003F37F8 /* MainMenu.xib */; };
 		E33498C714C57C1C003F37F8 /* InputMethodController.m in Sources */ = {isa = PBXBuildFile; fileRef = E33498C614C57C1C003F37F8 /* InputMethodController.m */; };
 		E33498CD14C57C99003F37F8 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E33498CC14C57C99003F37F8 /* InputMethodKit.framework */; };
+		E3640EAC14CBFCD300364108 /* CINParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E3640EAB14CBFCD300364108 /* CINParser.m */; };
+		E3640EAF14CC0C5000364108 /* DataTable.m in Sources */ = {isa = PBXBuildFile; fileRef = E3640EAE14CC0C5000364108 /* DataTable.m */; };
 		E372A42514C7E63000E26D1F /* favicon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E372A42314C7E63000E26D1F /* favicon.icns */; };
 		E372A42614C7E63000E26D1F /* faviconTIS.icns in Resources */ = {isa = PBXBuildFile; fileRef = E372A42414C7E63000E26D1F /* faviconTIS.icns */; };
+		E3C4682314D19D9A00F468B1 /* BopomofoReadingBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E3C4682214D19D9A00F468B1 /* BopomofoReadingBuffer.m */; };
+		E3C4684214D1A69600F468B1 /* ComposingBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = E3C4684114D1A69600F468B1 /* ComposingBuffer.m */; };
+		E3C4684614D1A7CA00F468B1 /* bpmf.cin in Resources */ = {isa = PBXBuildFile; fileRef = E3C4684514D1A7CA00F468B1 /* bpmf.cin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,8 +36,17 @@
 		E33498C514C57C1C003F37F8 /* InputMethodController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputMethodController.h; sourceTree = "<group>"; };
 		E33498C614C57C1C003F37F8 /* InputMethodController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputMethodController.m; sourceTree = "<group>"; };
 		E33498CC14C57C99003F37F8 /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = System/Library/Frameworks/InputMethodKit.framework; sourceTree = SDKROOT; };
+		E3640EAA14CBFCD300364108 /* CINParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CINParser.h; sourceTree = "<group>"; };
+		E3640EAB14CBFCD300364108 /* CINParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CINParser.m; sourceTree = "<group>"; };
+		E3640EAD14CC0C5000364108 /* DataTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTable.h; sourceTree = "<group>"; };
+		E3640EAE14CC0C5000364108 /* DataTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTable.m; sourceTree = "<group>"; };
 		E372A42314C7E63000E26D1F /* favicon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = favicon.icns; sourceTree = "<group>"; };
 		E372A42414C7E63000E26D1F /* faviconTIS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = faviconTIS.icns; sourceTree = "<group>"; };
+		E3C4682114D19D9A00F468B1 /* BopomofoReadingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BopomofoReadingBuffer.h; sourceTree = "<group>"; };
+		E3C4682214D19D9A00F468B1 /* BopomofoReadingBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BopomofoReadingBuffer.m; sourceTree = "<group>"; };
+		E3C4684014D1A69600F468B1 /* ComposingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposingBuffer.h; sourceTree = "<group>"; };
+		E3C4684114D1A69600F468B1 /* ComposingBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposingBuffer.m; sourceTree = "<group>"; };
+		E3C4684514D1A7CA00F468B1 /* bpmf.cin */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bpmf.cin; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +124,14 @@
 		E33498BF14C57B6A003F37F8 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E3C4684014D1A69600F468B1 /* ComposingBuffer.h */,
+				E3C4684114D1A69600F468B1 /* ComposingBuffer.m */,
+				E3C4682114D19D9A00F468B1 /* BopomofoReadingBuffer.h */,
+				E3C4682214D19D9A00F468B1 /* BopomofoReadingBuffer.m */,
+				E3640EAD14CC0C5000364108 /* DataTable.h */,
+				E3640EAE14CC0C5000364108 /* DataTable.m */,
+				E3640EAA14CBFCD300364108 /* CINParser.h */,
+				E3640EAB14CBFCD300364108 /* CINParser.m */,
 				E33498C514C57C1C003F37F8 /* InputMethodController.h */,
 				E33498C614C57C1C003F37F8 /* InputMethodController.m */,
 			);
@@ -128,9 +150,18 @@
 		E3508E4F14C72644001BB656 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E3C4684414D1A7CA00F468B1 /* data */,
 				E3508E4A14C72639001BB656 /* icons */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		E3C4684414D1A7CA00F468B1 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				E3C4684514D1A7CA00F468B1 /* bpmf.cin */,
+			);
+			path = data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,6 +218,7 @@
 				E33498B914C57AF4003F37F8 /* MainMenu.xib in Resources */,
 				E372A42514C7E63000E26D1F /* favicon.icns in Resources */,
 				E372A42614C7E63000E26D1F /* faviconTIS.icns in Resources */,
+				E3C4684614D1A7CA00F468B1 /* bpmf.cin in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +231,10 @@
 			files = (
 				E33498AF14C57AF4003F37F8 /* main.m in Sources */,
 				E33498C714C57C1C003F37F8 /* InputMethodController.m in Sources */,
+				E3640EAC14CBFCD300364108 /* CINParser.m in Sources */,
+				E3640EAF14CC0C5000364108 /* DataTable.m in Sources */,
+				E3C4682314D19D9A00F468B1 /* BopomofoReadingBuffer.m in Sources */,
+				E3C4684214D1A69600F468B1 /* ComposingBuffer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

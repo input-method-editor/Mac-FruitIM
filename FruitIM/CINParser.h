@@ -1,5 +1,5 @@
 //
-//  InputMethodController.h
+//  CINParser.h
 //
 //  Copyright (c) 2012, Chi-En Wu All rights reserved.
 //
@@ -28,10 +28,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <InputMethodKit/InputMethodKit.h>
-#import "DataTable.h"
-#import "ComposingBuffer.h"
 
-@interface InputMethodController : IMKInputController
+@interface CINParser : NSObject
+
+- (NSDictionary *) parseContent:(NSString *)content;
+- (NSDictionary *) parseContentOfFile:(NSString *)path encoding:(NSStringEncoding)encoding error:(NSError **)error;
 
 @end
