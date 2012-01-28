@@ -123,6 +123,15 @@
     return YES;
 }
 
+- (BOOL) cancelComposing
+{
+    if (_readingBuffer.isEmpty)
+        return NO;
+
+    [_readingBuffer clear];
+    return YES;
+}
+
 - (void) clear
 {
     [_readingBuffer clear];

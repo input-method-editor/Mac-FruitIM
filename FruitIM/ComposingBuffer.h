@@ -39,6 +39,7 @@
 - (BOOL) moveCursorForward;
 - (BOOL) deleteBackward;
 - (BOOL) deleteForward;
+- (BOOL) cancelComposing;
 - (void) clear;
 - (BOOL) isEmpty;
 - (BOOL) isComposed;
