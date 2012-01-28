@@ -43,6 +43,7 @@ static NSString *_FORMAT_END = @"end";
 - (BOOL) _parseBody:(NSEnumerator *)enumerator storeIn:(NSMutableDictionary *)dict;
 - (BOOL) _parseList:(NSEnumerator *)enumerator name:(NSString *)name
            storeIn:(NSMutableDictionary *)dict;
+- (NSString *) _nextLine:(NSEnumerator *)enumerator;
 
 @end
 
@@ -71,14 +72,14 @@ static NSString *_FORMAT_END = @"end";
 
 - (BOOL) _parseHead:(NSEnumerator *)enumerator storeIn:(NSMutableDictionary *)dict
 {
-    NSString *line = enumerator.nextObject;
+    NSString *line = [self _nextLine:enumerator];
     return [line isEqualToString:_FORMAT_HEAD];
 }
 
 - (BOOL) _parseBody:(NSEnumerator *)enumerator storeIn:(NSMutableDictionary *)dict
 {
     NSString *line;
-    while ((line = enumerator.nextObject))
+    while ((line = [self _nextLine:enumerator]))
     {
         if (line.length == 0)
             continue;
@@ -107,7 +108,7 @@ static NSString *_FORMAT_END = @"end";
     NSMutableDictionary *valueDict = [[[NSMutableDictionary alloc] init] autorelease];
 
     NSString *line;
-    while ([(line = enumerator.nextObject) characterAtIndex:0] != _FORMAT_START)
+    while ([(line = [self _nextLine:enumerator]) characterAtIndex:0] != _FORMAT_START)
     {
         NSUInteger index = [line rangeOfString:_TOKEN_SEPARATOR].location;
         if (index == NSNotFound)
@@ -136,6 +137,11 @@ static NSString *_FORMAT_END = @"end";
     NSString *key = [line substringWithRange:NSMakeRange(1, index - 1)];
     NSString *value = [line substringFromIndex:index + 2];
     return [key isEqualToString:name] && [value isEqualToString:_FORMAT_END];
+}
+
+- (NSString *) _nextLine:(NSEnumerator *)enumerator
+{
+    return enumerator.nextObject;
 }
 
 @end
