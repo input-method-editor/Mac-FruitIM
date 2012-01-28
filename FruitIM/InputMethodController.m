@@ -112,6 +112,17 @@ static const KeyCode
     if ([self _shouldIgnoreKey:keyCode modifiers:flags])
         return NO;
 
+    if ((flags & NSShiftKeyMask) || (flags & NSAlphaShiftKeyMask))
+    {
+        [self commitComposition:client];
+        if ((flags & NSShiftKeyMask) && (flags & NSAlphaShiftKeyMask))
+            return NO;
+
+        [client insertText:[text lowercaseString]
+          replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
+        return YES;
+    }
+
     BOOL isPassed = YES, isProcessed = YES;
     switch (keyCode)
     {
