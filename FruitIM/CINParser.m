@@ -81,9 +81,6 @@ static NSString *_FORMAT_END = @"end";
     NSString *line;
     while ((line = [self _nextLine:enumerator]))
     {
-        if (line.length == 0)
-            continue;
-
         if ([line characterAtIndex:0] != _FORMAT_START)
             return NO;
 
@@ -141,7 +138,13 @@ static NSString *_FORMAT_END = @"end";
 
 - (NSString *) _nextLine:(NSEnumerator *)enumerator
 {
-    return enumerator.nextObject;
+    NSString *line;
+    do
+    {
+        line = enumerator.nextObject;
+    } while (line != nil && line.length == 0);
+
+    return line;
 }
 
 @end
