@@ -33,6 +33,7 @@ static NSString *_EXPRESSION_SEPARATOR = @"\n";
 static NSString *_TOKEN_SEPARATOR = @" ";
 
 static unichar _FORMAT_START = '%';
+static unichar _FORMAT_COMMENT = '#';
 static NSString *_FORMAT_HEAD = @"%gen_inp";
 static NSString *_FORMAT_BEGIN = @"begin";
 static NSString *_FORMAT_END = @"end";
@@ -44,6 +45,7 @@ static NSString *_FORMAT_END = @"end";
 - (BOOL) _parseList:(NSEnumerator *)enumerator name:(NSString *)name
            storeIn:(NSMutableDictionary *)dict;
 - (NSString *) _nextLine:(NSEnumerator *)enumerator;
+- (NSString *) _nextNonCommentLine:(NSEnumerator *)enumerator;
 
 @end
 
@@ -143,6 +145,17 @@ static NSString *_FORMAT_END = @"end";
     {
         line = enumerator.nextObject;
     } while (line != nil && line.length == 0);
+
+    return line;
+}
+
+- (NSString *) _nextNonCommentLine:(NSEnumerator *)enumerator;
+{
+    NSString *line;
+    do
+    {
+        line = [self _nextLine:enumerator];
+    } while (line != nil && [line characterAtIndex:0] == _FORMAT_COMMENT);
 
     return line;
 }
