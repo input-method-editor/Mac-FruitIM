@@ -74,14 +74,14 @@ static NSString *_FORMAT_END = @"end";
 
 - (BOOL) _parseHead:(NSEnumerator *)enumerator storeIn:(NSMutableDictionary *)dict
 {
-    NSString *line = [self _nextLine:enumerator];
+    NSString *line = [self _nextNonCommentLine:enumerator];
     return [line isEqualToString:_FORMAT_HEAD];
 }
 
 - (BOOL) _parseBody:(NSEnumerator *)enumerator storeIn:(NSMutableDictionary *)dict
 {
     NSString *line;
-    while ((line = [self _nextLine:enumerator]))
+    while ((line = [self _nextNonCommentLine:enumerator]))
     {
         if ([line characterAtIndex:0] != _FORMAT_START)
             return NO;
