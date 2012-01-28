@@ -113,7 +113,8 @@ static const KeyCode
     if ([self _shouldIgnoreKey:keyCode modifiers:flags])
         return NO;
 
-    if ((flags & NSShiftKeyMask) || (flags & NSAlphaShiftKeyMask))
+    char charCode = text.length > 0 ? [text characterAtIndex:0] : 0;
+    if (((flags & NSShiftKeyMask) && charCode >= 'A' && charCode <= 'Z') || (flags & NSAlphaShiftKeyMask))
     {
         [self commitComposition:client];
         if ((flags & NSShiftKeyMask) && (flags & NSAlphaShiftKeyMask))
