@@ -51,7 +51,7 @@ static const KeyCode
 
 - (BOOL) _shouldIgnoreKey:(NSInteger)keyCode modifiers:(NSUInteger)flags;
 - (BOOL) _handleOperationKey:(NSInteger)keyCode client:(id)client;
-- (void) _showCandidates;
+- (BOOL) _showCandidates;
 - (void) _updateComposition:(id)client;
 
 @end
@@ -113,7 +113,8 @@ static const KeyCode
     if ([self _shouldIgnoreKey:keyCode modifiers:flags])
         return NO;
 
-    if ((flags & NSShiftKeyMask) || (flags & NSAlphaShiftKeyMask))
+    char charCode = text.length > 0 ? [text characterAtIndex:0] : 0;
+    if (((flags & NSShiftKeyMask) && charCode >= 'A' && charCode <= 'Z') || (flags & NSAlphaShiftKeyMask))
     {
         [self commitComposition:client];
         if ((flags & NSShiftKeyMask) && (flags & NSAlphaShiftKeyMask))
@@ -194,7 +195,7 @@ static const KeyCode
             break;
 
         case KEY_MOVE_DOWN:
-            [self _showCandidates];
+            isPassed = [self _showCandidates];
             break;
 
         default:
@@ -207,10 +208,14 @@ static const KeyCode
     return YES;
 }
 
-- (void) _showCandidates
+- (BOOL) _showCandidates
 {
+    if (_buffer.candidates.count == 1)
+        return NO;
+
     [sharedCandidates updateCandidates];
     [sharedCandidates show:kIMKLocateCandidatesBelowHint];
+    return YES;
 }
 
 - (void) _updateComposition:(id)client

@@ -33,6 +33,7 @@ static NSString *_EXPRESSION_SEPARATOR = @"\n";
 static NSString *_TOKEN_SEPARATOR = @" ";
 
 static unichar _FORMAT_START = '%';
+static unichar _FORMAT_COMMENT = '#';
 static NSString *_FORMAT_HEAD = @"%gen_inp";
 static NSString *_FORMAT_BEGIN = @"begin";
 static NSString *_FORMAT_END = @"end";
@@ -43,6 +44,8 @@ static NSString *_FORMAT_END = @"end";
 - (BOOL) _parseBody:(NSEnumerator *)enumerator storeIn:(NSMutableDictionary *)dict;
 - (BOOL) _parseList:(NSEnumerator *)enumerator name:(NSString *)name
            storeIn:(NSMutableDictionary *)dict;
+- (NSString *) _nextLine:(NSEnumerator *)enumerator;
+- (NSString *) _nextNonCommentLine:(NSEnumerator *)enumerator;
 
 @end
 
@@ -71,18 +74,15 @@ static NSString *_FORMAT_END = @"end";
 
 - (BOOL) _parseHead:(NSEnumerator *)enumerator storeIn:(NSMutableDictionary *)dict
 {
-    NSString *line = enumerator.nextObject;
+    NSString *line = [self _nextNonCommentLine:enumerator];
     return [line isEqualToString:_FORMAT_HEAD];
 }
 
 - (BOOL) _parseBody:(NSEnumerator *)enumerator storeIn:(NSMutableDictionary *)dict
 {
     NSString *line;
-    while ((line = enumerator.nextObject))
+    while ((line = [self _nextNonCommentLine:enumerator]))
     {
-        if (line.length == 0)
-            continue;
-
         if ([line characterAtIndex:0] != _FORMAT_START)
             return NO;
 
@@ -93,7 +93,7 @@ static NSString *_FORMAT_END = @"end";
         NSString *key = [line substringWithRange:NSMakeRange(1, index - 1)];
         NSString *value = [line substringFromIndex:index + 2];
         if (![value isEqualToString:_FORMAT_BEGIN])
-            [dict setValue:value forKey:key];
+            [dict setObject:value forKey:key];
         else if (![self _parseList:enumerator name:key storeIn:dict])
             return NO;
     }
@@ -105,10 +105,14 @@ static NSString *_FORMAT_END = @"end";
             storeIn:(NSMutableDictionary *)dict
 {
     NSMutableDictionary *valueDict = [[[NSMutableDictionary alloc] init] autorelease];
+    NSString *endString = [NSString stringWithFormat:@"%c%@  %@", _FORMAT_START, name, _FORMAT_END];
 
-    NSString *line;
-    while ([(line = enumerator.nextObject) characterAtIndex:0] != _FORMAT_START)
+    NSString *line = [self _nextLine:enumerator];
+    while (![line isEqualToString:endString])
     {
+        if (line == nil)
+            return NO;
+
         NSUInteger index = [line rangeOfString:_TOKEN_SEPARATOR].location;
         if (index == NSNotFound)
             return NO;
@@ -117,25 +121,41 @@ static NSString *_FORMAT_END = @"end";
         NSString *value = [[line substringFromIndex:index + 1] stringByTrimmingCharactersInSet:
                            [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
-        NSMutableArray *valueList = [valueDict valueForKey:key];
+        NSMutableArray *valueList = [valueDict objectForKey:key];
         if (!valueList)
         {
             valueList = [[[NSMutableArray alloc] init] autorelease];
-            [valueDict setValue:valueList forKey:key];
+            [valueDict setObject:valueList forKey:key];
         }
 
         [valueList addObject:value];
+        line = [self _nextLine:enumerator];
     }
 
-    [dict setValue:valueDict forKey:name];
+    [dict setObject:valueDict forKey:name];
+    return YES;
+}
 
-    NSUInteger index = [line rangeOfString:_TOKEN_SEPARATOR].location;
-    if (index == NSNotFound)
-        return NO;
+- (NSString *) _nextLine:(NSEnumerator *)enumerator
+{
+    NSString *line;
+    do
+    {
+        line = enumerator.nextObject;
+    } while (line != nil && line.length == 0);
 
-    NSString *key = [line substringWithRange:NSMakeRange(1, index - 1)];
-    NSString *value = [line substringFromIndex:index + 2];
-    return [key isEqualToString:name] && [value isEqualToString:_FORMAT_END];
+    return line;
+}
+
+- (NSString *) _nextNonCommentLine:(NSEnumerator *)enumerator;
+{
+    NSString *line;
+    do
+    {
+        line = [self _nextLine:enumerator];
+    } while (line != nil && [line characterAtIndex:0] == _FORMAT_COMMENT);
+
+    return line;
 }
 
 @end

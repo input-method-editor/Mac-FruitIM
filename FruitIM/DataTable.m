@@ -57,7 +57,7 @@ static NSString *_ENDKEY = @"endkey";
 
 + (NSString *) pathForName:(NSString *)name
 {
-    return [_instanceFilePaths valueForKey:name];
+    return [_instanceFilePaths objectForKey:name];
 }
 
 + (NSArray *) registeredNames
@@ -67,7 +67,7 @@ static NSString *_ENDKEY = @"endkey";
 
 + (void) registerName:(NSString *)name filePath:(NSString *)path
 {
-    [_instanceFilePaths setValue:path forKey:name];
+    [_instanceFilePaths setObject:path forKey:name];
 }
 
 + (void) unregisterName:(NSString *)name
@@ -81,10 +81,10 @@ static NSString *_ENDKEY = @"endkey";
 {
     @synchronized(self)
     {
-        DataTable *instance = [_instances valueForKey:name];
+        DataTable *instance = [_instances objectForKey:name];
         if (!instance)
         {
-            NSString *path = [_instanceFilePaths valueForKey:name];
+            NSString *path = [_instanceFilePaths objectForKey:name];
             if (!path) return nil;
 
             CINParser *parser = [[[CINParser alloc] init] autorelease];
@@ -94,7 +94,7 @@ static NSString *_ENDKEY = @"endkey";
             if (!dict) return nil;
 
             instance = [[[DataTable alloc] initWithDict:dict] autorelease];
-            [_instances setValue:instance forKey:name];
+            [_instances setObject:instance forKey:name];
         }
 
         return instance;
@@ -136,27 +136,27 @@ static NSString *_ENDKEY = @"endkey";
 
 - (NSString *) name
 {
-    return [_info valueForKey:_NAME];
+    return [_info objectForKey:_NAME];
 }
 
 - (NSString *) characterForText:(NSString *)text
 {
-    return [[[_info valueForKey:_KEYNAME] valueForKey:text] objectAtIndex:0];
+    return [[[_info objectForKey:_KEYNAME] objectForKey:text] objectAtIndex:0];
 }
 
 - (NSArray *) candidatesForText:(NSString *)text
 {
-    return [[_info valueForKey:_CHARDEF] valueForKey:text];
+    return [[_info objectForKey:_CHARDEF] objectForKey:text];
 }
 
-- (BOOL) selectionKeyContainsText:(NSString *)text
+- (BOOL) hasSelectionKey:(NSString *)key
 {
-    return [[_info valueForKey:_SELKEY] rangeOfString:text].location != NSNotFound;
+    return [[_info objectForKey:_SELKEY] rangeOfString:key].location != NSNotFound;
 }
 
-- (BOOL) endKeyContainsText:(NSString *)text
+- (BOOL) hasEndKey:(NSString *)key
 {
-    return [[_info valueForKey:_ENDKEY] rangeOfString:text].location != NSNotFound;
+    return [[_info objectForKey:_ENDKEY] rangeOfString:key].location != NSNotFound;
 }
 
 @end

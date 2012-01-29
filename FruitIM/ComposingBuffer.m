@@ -62,19 +62,25 @@
 
 - (BOOL) inputText:(NSString *)text
 {
-    BOOL isWhitespace = [text isEqualTo:@" "];
-    if (!isWhitespace)
-        if (![_readingBuffer insertSymbol:text])
-            return NO;
+    NSString *composingString;
 
-    NSString *syllable = _readingBuffer.string;
-    if (isWhitespace || [_dataTable endKeyContainsText:text])
+    BOOL isWhitespace = [text isEqualTo:@" "];
+    if (isWhitespace)
+        composingString = _readingBuffer.string;
+    else if ([_readingBuffer insertSymbol:text])
+        composingString = _readingBuffer.string;
+    else if (_readingBuffer.isEmpty && [_dataTable characterForText:text])
+        composingString = text;
+    else
+        return NO;
+
+    if (isWhitespace || [_dataTable hasEndKey:text])
     {
-        NSArray *candidates = [_dataTable candidatesForText:syllable];
+        NSArray *candidates = [_dataTable candidatesForText:composingString];
         if (!candidates)
             return NO;
 
-        [_composingBuffer insertObject:syllable atIndex:_cursorPosition];
+        [_composingBuffer insertObject:composingString atIndex:_cursorPosition];
         [_composedString insertString:[candidates objectAtIndex:0] atIndex:_cursorPosition++];
         [_readingBuffer clear];
     }

@@ -48,7 +48,7 @@
 - (NSString *) name;
 - (NSString *) characterForText:(NSString *)text;
 - (NSArray *) candidatesForText:(NSString *)text;
-- (BOOL) selectionKeyContainsText:(NSString *)text;
-- (BOOL) endKeyContainsText:(NSString *)text;
+- (BOOL) hasSelectionKey:(NSString *)key;
+- (BOOL) hasEndKey:(NSString *)key;
 
 @end

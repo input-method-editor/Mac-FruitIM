@@ -121,7 +121,7 @@ static NSDictionary *_symbolType;
 
 - (BOOL) insertSymbol:(NSString *)symbol
 {
-    BopomofoSymbolType *type = [_symbolType valueForKey:symbol];
+    BopomofoSymbolType *type = [_symbolType objectForKey:symbol];
     if (!type) return NO;
 
     if (type == BPMF_CONSONANT)
