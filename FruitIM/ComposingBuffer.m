@@ -74,7 +74,7 @@
     else
         return NO;
 
-    if (isWhitespace || [_dataTable endKeyContainsText:text])
+    if (isWhitespace || [_dataTable hasEndKey:text])
     {
         NSArray *candidates = [_dataTable candidatesForText:composingString];
         if (!candidates)

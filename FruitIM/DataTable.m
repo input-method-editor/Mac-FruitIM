@@ -149,14 +149,14 @@ static NSString *_ENDKEY = @"endkey";
     return [[_info objectForKey:_CHARDEF] objectForKey:text];
 }
 
-- (BOOL) selectionKeyContainsText:(NSString *)text
+- (BOOL) hasSelectionKey:(NSString *)key
 {
-    return [[_info objectForKey:_SELKEY] rangeOfString:text].location != NSNotFound;
+    return [[_info objectForKey:_SELKEY] rangeOfString:key].location != NSNotFound;
 }
 
-- (BOOL) endKeyContainsText:(NSString *)text
+- (BOOL) hasEndKey:(NSString *)key
 {
-    return [[_info objectForKey:_ENDKEY] rangeOfString:text].location != NSNotFound;
+    return [[_info objectForKey:_ENDKEY] rangeOfString:key].location != NSNotFound;
 }
 
 @end
