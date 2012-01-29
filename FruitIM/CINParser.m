@@ -29,9 +29,6 @@
 
 #import "CINParser.h"
 
-static NSString *_EXPRESSION_SEPARATOR = @"\n";
-static NSString *_TOKEN_SEPARATOR = @" ";
-
 static unichar _FORMAT_START = '%';
 static unichar _FORMAT_COMMENT = '#';
 static NSString *_FORMAT_HEAD = @"%gen_inp";
@@ -56,7 +53,7 @@ static NSString *_FORMAT_END = @"end";
 {
     NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
 
-    NSArray *lines = [content componentsSeparatedByString:_EXPRESSION_SEPARATOR];
+    NSArray *lines = [content componentsSeparatedByString:@"\n"];
     NSEnumerator *enumerator = lines.objectEnumerator;
     if (![self _parseHead:enumerator storeIn:dict] ||
         ![self _parseBody:enumerator storeIn:dict])
@@ -87,12 +84,10 @@ static NSString *_FORMAT_END = @"end";
         if ([line characterAtIndex:0] != _FORMAT_START)
             return NO;
 
-        NSUInteger index = [line rangeOfString:_TOKEN_SEPARATOR].location;
-        if (index == NSNotFound)
+        NSString *key, *value;
+        if (![self _splitLine:[line substringFromIndex:1] intoKey:&key value:&value])
             return NO;
 
-        NSString *key = [line substringWithRange:NSMakeRange(1, index - 1)];
-        NSString *value = [line substringFromIndex:index + 2];
         if (![value isEqualToString:_FORMAT_BEGIN])
             [dict setObject:value forKey:key];
         else if (![self _parseList:enumerator name:key storeIn:dict])
@@ -111,16 +106,9 @@ static NSString *_FORMAT_END = @"end";
     NSString *line = [self _nextLine:enumerator];
     while (![line isEqualToString:endString])
     {
-        if (line == nil)
+        NSString *key, *value;
+        if (![self _splitLine:line intoKey:&key value:&value])
             return NO;
-
-        NSUInteger index = [line rangeOfString:_TOKEN_SEPARATOR].location;
-        if (index == NSNotFound)
-            return NO;
-
-        NSString *key = [line substringToIndex:index];
-        NSString *value = [[line substringFromIndex:index + 1] stringByTrimmingCharactersInSet:
-                           [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
         NSMutableArray *valueList = [valueDict objectForKey:key];
         if (!valueList)
