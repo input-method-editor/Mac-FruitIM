@@ -43,7 +43,8 @@ static NSString *_FORMAT_END = @"end";
 - (BOOL) _parseHead:(NSEnumerator *)enumerator storeIn:(NSMutableDictionary *)dict;
 - (BOOL) _parseBody:(NSEnumerator *)enumerator storeIn:(NSMutableDictionary *)dict;
 - (BOOL) _parseList:(NSEnumerator *)enumerator name:(NSString *)name
-           storeIn:(NSMutableDictionary *)dict;
+            storeIn:(NSMutableDictionary *)dict;
+- (BOOL) _splitLine:(NSString *)line intoKey:(NSString **)key value:(NSString **)value;
 - (NSString *) _nextLine:(NSEnumerator *)enumerator;
 - (NSString *) _nextNonCommentLine:(NSEnumerator *)enumerator;
 
@@ -133,6 +134,22 @@ static NSString *_FORMAT_END = @"end";
     }
 
     [dict setObject:valueDict forKey:name];
+    return YES;
+}
+
+- (BOOL) _splitLine:(NSString *)line intoKey:(NSString **)key value:(NSString **)value
+{
+    NSCharacterSet *whitespaces = [NSCharacterSet whitespaceCharacterSet];
+    NSCharacterSet *null = [[[NSCharacterSet alloc] init] autorelease];
+
+    NSScanner *scanner = [NSScanner scannerWithString:line];
+    if (![scanner scanUpToCharactersFromSet:whitespaces intoString:key])
+        return NO;
+
+    [scanner scanCharactersFromSet:whitespaces intoString:nil];
+    if (![scanner scanUpToCharactersFromSet:null intoString:value])
+        return NO;
+
     return YES;
 }
 
