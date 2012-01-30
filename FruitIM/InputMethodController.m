@@ -139,6 +139,7 @@ static const KeyCode
 - (void) commitComposition:(id)client
 {
     Debug(@"Call commitComposition:%@", client);
+    [_buffer cancelComposing];
     [client insertText:_buffer.composedString
       replacementRange:NSMakeRange(NSNotFound, NSNotFound)];
     [_buffer clear];
@@ -171,7 +172,10 @@ static const KeyCode
     switch (keyCode)
     {
         case KEY_RETURN:
-            [self commitComposition:client];
+            if (_buffer.isComposed)
+                [self commitComposition:client];
+            else
+                isPassed = false;
             break;
 
         case KEY_ESC:
